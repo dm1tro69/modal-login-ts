@@ -1,4 +1,4 @@
-import React, {ComponentType, FC, MouseEventHandler} from 'react';
+import React, {ComponentType, FC, MouseEventHandler, ReactNode} from 'react';
 import Modal from "./Modal";
 import {DesktopModalContainer, Header, Message, CloseSign, DesktopCloseButton} from "./ModalPopup.styles";
 
@@ -7,6 +7,7 @@ export interface BaseModalWrapperProps {
     onBackDropClick: () => void
     header: string
     message?: string
+    content?: ReactNode
 }
 interface ComponentsProps {
     ContainerComponent: ComponentType<{}>
@@ -16,7 +17,7 @@ interface ComponentsProps {
 }
 type Props = BaseModalWrapperProps & ComponentsProps
 
-const BaseModalWrapper:FC<Props> = ({isModalVisible, onBackDropClick, header, message, CloseButtonComponent, ContainerComponent}) => {
+const BaseModalWrapper:FC<Props> = ({isModalVisible, onBackDropClick, content, header, message, CloseButtonComponent, ContainerComponent}) => {
 
     if (!isModalVisible){
         return null
@@ -30,6 +31,7 @@ const BaseModalWrapper:FC<Props> = ({isModalVisible, onBackDropClick, header, me
                 </CloseButtonComponent>
                 <Header>{header}</Header>
                 {message && <Message>{message}</Message>}
+                {content}
             </ContainerComponent>
         </Modal>
 
